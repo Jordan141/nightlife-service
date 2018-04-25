@@ -20,6 +20,8 @@
   "homepage": "https://github.com/Jordan141/nightlife-service#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "lodash": "^4.17.10",
+    "yelp-fusion": "^2.0.3"
   }
 }

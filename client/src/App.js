@@ -1,38 +1,38 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Banner from './components/banner'
+import Input from './components/Input'
+import List from './components/List'
+import _ from 'lodash'
 import './App.css';
 
+const SEARCH_URL = '/api'
 class App extends Component {
   state = {
-    response: ''
+    items: []
   }
 
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
-  }
-
-  callApi = async () => {
-    const response = await fetch('/api/hello');
-    console.log(response)
+  searchTerm = async (type, location) => {
+    console.log(type, location)
+    const response = await fetch(`${SEARCH_URL}/${type}/${location}`);
+    console.log('Response', response)
     const body = await response.json();
     console.log(response, body)
     if (response.status !== 200) throw Error(body.message);
 
-    return body;
+    this.setState({items: body.businesses})
   }
 
   render() {
+    const searchTerm = _.debounce((type, location) => {this.searchTerm(type, location)}, 450)
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-         {this.state.response}
-        </p>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
+            <Banner />
+            <Input onSearchTermChange={searchTerm}/>
+            <List items={this.state.items}/>
+          </div>
+        </div>
       </div>
     );
   }
