@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Banner from './components/banner'
 import Input from './components/Input'
 import List from './components/List'
+//import Footer from './components/Footer'
 import _ from 'lodash'
 import './App.css';
 
